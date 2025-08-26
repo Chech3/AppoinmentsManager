@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "./EditModal.css";
-export default function EditModal({ isOpen, onClose, appointment, onSave }) {
+import "./Modal.css";
+export default function EditModal({ isOpen, onClose, appointment, onSave, onCreate, isCreating }) {
   const [formData, setFormData] = useState({
     title: "",
     address: "",
@@ -9,14 +9,27 @@ export default function EditModal({ isOpen, onClose, appointment, onSave }) {
     levelOfImportance: 0,
   });
 
+
+  const handleClear = () => {
+    setFormData({
+      title: "",
+      address: "",
+      date: "",
+      description: "",
+      levelOfImportance: 0,
+    });
+  }
+
   // Cuando el modal se abra, rellenamos con los datos actuales
   useEffect(() => {
-    if (appointment) {
+    if (appointment && !isCreating) {
       setFormData(appointment);
+    } else if (isCreating) {
+      handleClear();
     }
-  }, [appointment]);
+  }, [appointment, isCreating]);
 
-  if (!isOpen) return null; // 👈 si no está abierto, no renderiza nada
+  if (!isOpen) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,13 +38,19 @@ export default function EditModal({ isOpen, onClose, appointment, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData); // enviamos los datos al padre
+    if (appointment && !isCreating) {
+      onSave(formData); // enviamos los datos al padre
+      handleClear();
+    } else if (isCreating) {
+      onCreate(formData);
+      handleClear();
+    }
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <h2 className="modal-title">Editar Cita</h2>
+        <h2 className="modal-title">{isCreating ? "Crear" : "Editar"} Cita</h2>
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="form-group">
             <label>Título</label>

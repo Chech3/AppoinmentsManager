@@ -7,6 +7,8 @@ Centrado
     align-items: center;
     flex-direction: column;
 }
+
+
 /* Contenedor principal */
 .table-container {
     width: 100%;
@@ -82,6 +84,27 @@ Centrado
     align-items: center;
     gap: 6px;
 }
+
+
+
+/* Botón crear */
+.btn-create {
+    flex: auto;
+    float: right;
+    margin-right: 8px;
+    margin-top: 8px;
+    background: linear-gradient(135deg, #4ffe7e 0%, #00fe3b 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+}
+
+
+.btn-create:hover {
+    background: linear-gradient(135deg, #3acf78 0%, #00e0ac 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+}
+
 
 /* Botón Editar */
 .btn-edit {

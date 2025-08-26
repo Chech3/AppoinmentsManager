@@ -1,12 +1,13 @@
 import './App.css';
 import { useFetch } from './hooks/useFetch';
 import { API_BASE_URL } from './const/app';
-import EditModal from "./components/EditModal";
+import Modal from "./components/Modal";
 import { useState } from 'react';
 function App() {
     const { data: appointments, loading, refetch } = useFetch(`${API_BASE_URL}api/appointment`);
     const [selected, setSelected] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCreating, setIsCreating] = useState(false);
     const colorImportance = (level) => {
         switch (level) {
             case 2:
@@ -42,6 +43,8 @@ function App() {
         } catch (err) {
             console.error(err);
             alert("Error al editar la cita");
+        } finally {
+            setIsCreating(false);
         }
     };
 
@@ -66,8 +69,26 @@ function App() {
     };
 
 
+    const handleCreate = async (newData) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}api/appointment`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newData),
+            });
+            setIsModalOpen(false);
+            if (response.ok) refetch();
+        }
+        catch (err) { console.log(err); }
+        finally {
+            setIsCreating(false);
+        }
+    }
+
+
     return (
         <div className="table-container">
+            <button onClick={() => { setIsModalOpen(true); setIsCreating(true); }} className='btn btn-create'>create</button>
             <table className="appointments-table">
                 <thead>
                     <tr>
@@ -110,6 +131,7 @@ function App() {
                                         <button onClick={() => {
                                             setSelected(item);
                                             setIsModalOpen(true);
+                                            setIsCreating(false);
                                         }}
                                             className="btn btn-edit">Editar</button>
                                         <button onClick={() => handleDelete(item.id)} className="btn btn-delete">Eliminar</button>
@@ -120,11 +142,13 @@ function App() {
                     )}
                 </tbody>
             </table>
-            <EditModal
+            <Modal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 appointment={selected}
                 onSave={handleEdit}
+                onCreate={handleCreate}
+                isCreating={isCreating}
             />
         </div>
     );
