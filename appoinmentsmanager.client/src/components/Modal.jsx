@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import "./Modal.css";
-export default function EditModal({ isOpen, onClose, appointment, onSave, onCreate, isCreating }) {
+import styles from './Modal.module.css';
+
+export default function Modal({ isOpen, onClose, appointment, onSave, onCreate, isCreating }) {
   const [formData, setFormData] = useState({
     title: "",
     address: "",
@@ -8,7 +9,6 @@ export default function EditModal({ isOpen, onClose, appointment, onSave, onCrea
     description: "",
     levelOfImportance: 0,
   });
-
 
   const handleClear = () => {
     setFormData({
@@ -48,11 +48,11 @@ export default function EditModal({ isOpen, onClose, appointment, onSave, onCrea
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-        <h2 className="modal-title">{isCreating ? "Crear" : "Editar"} Cita</h2>
-        <form onSubmit={handleSubmit} className="modal-form">
-          <div className="form-group">
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContainer}>
+        <h2 className={styles.modalTitle}>{isCreating ? "Crear" : "Editar"} Cita</h2>
+        <form onSubmit={handleSubmit} className={styles.modalForm}>
+          <div className={styles.formGroup}>
             <label>Título</label>
             <input
               type="text"
@@ -63,7 +63,7 @@ export default function EditModal({ isOpen, onClose, appointment, onSave, onCrea
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Dirección</label>
             <input
               type="text"
@@ -74,18 +74,18 @@ export default function EditModal({ isOpen, onClose, appointment, onSave, onCrea
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Fecha</label>
             <input
               type="date"
               name="date"
-              value={formData.date}
+              value={formData.date ? formData.date.slice(0, 10) : ""}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Descripción</label>
             <textarea
               name="description"
@@ -94,7 +94,7 @@ export default function EditModal({ isOpen, onClose, appointment, onSave, onCrea
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Importancia</label>
             <select
               name="levelOfImportance"
@@ -107,11 +107,11 @@ export default function EditModal({ isOpen, onClose, appointment, onSave, onCrea
             </select>
           </div>
 
-          <div className="modal-actions">
-            <button type="button" className="btn btn-cancel" onClick={onClose}>
+          <div className={styles.modalActions}>
+            <button type="button" className={`${styles.btn} ${styles.btnCancel}`} onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit" className="btn btn-save">
+            <button type="submit" className={`${styles.btn} ${styles.btnSave}`}>
               Guardar
             </button>
           </div>

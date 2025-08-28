@@ -1,5 +1,5 @@
 /* Fondo oscuro */
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
@@ -10,7 +10,7 @@
 }
 
 /* Caja del modal */
-.modal-container {
+.modalContainer {
   background: #fff;
   width: 400px;
   max-width: 90%;
@@ -21,7 +21,7 @@
 }
 
 /* Título */
-.modal-title {
+.modalTitle {
   margin-bottom: 16px;
   font-size: 20px;
   font-weight: bold;
@@ -30,43 +30,45 @@
 }
 
 /* Formulario */
-.modal-form {
+.modalForm {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.form-group {
+.formGroup {
   display: flex;
   flex-direction: column;
 }
 
-.form-group label {
+.formGroup label {
   font-size: 14px;
   margin-bottom: 6px;
   font-weight: 500;
   color: black;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
   transition: border 0.2s;
+  width: auto;
+  margin-left: 0px;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
   border-color: #007bff;
   outline: none;
 }
 
 /* Botones */
-.modal-actions {
+.modalActions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -82,20 +84,20 @@
   transition: background 0.2s;
 }
 
-.btn-cancel {
+.btnCancel {
   background: #e0e0e0;
 }
 
-.btn-cancel:hover {
+.btnCancel:hover {
   background: #c5c5c5;
 }
 
-.btn-save {
+.btnSave {
   background: #007bff;
   color: white;
 }
 
-.btn-save:hover {
+.btnSave:hover {
   background: #0056b3;
 }
 
