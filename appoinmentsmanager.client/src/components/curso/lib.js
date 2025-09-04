@@ -34,7 +34,7 @@ export const activeId = {
     id: 0
 }
 
-const url = "api/appointment"
+const url = "https://localhost:7168/api/appointment"
 
 export async function getDefault(){
     const res = await fetch(url)
